@@ -237,9 +237,22 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
-    console.log(questions);
+    // Check if they are all multiple choice
+    let allMultiple: boolean = questions.every(
+        (currentQuestion: Question): boolean => {
+            return currentQuestion.type === "multiple_choice_question";
+        },
+    );
 
-    return false;
+    // Check if they are all short answer
+    let allShort: boolean = questions.every(
+        (currentQuestion: Question): boolean => {
+            return currentQuestion.type === "short_answer_question";
+        },
+    );
+
+    // Check if questions are all short answer or all multiple choice
+    return allMultiple || allShort;
 }
 
 /***

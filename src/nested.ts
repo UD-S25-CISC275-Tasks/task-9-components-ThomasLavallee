@@ -280,9 +280,25 @@ export function renameQuestionById(
     targetId: number,
     newName: string,
 ): Question[] {
-    console.log(questions, targetId, newName);
+    // Make a deep copy of all questions, and change name to newName of question with targetId
+    let renamedQuestions: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            if (currentQuestion.id === targetId) {
+                return {
+                    ...currentQuestion,
+                    options: [...currentQuestion.options],
+                    name: newName,
+                };
+            } else {
+                return {
+                    ...currentQuestion,
+                    options: [...currentQuestion.options],
+                };
+            }
+        },
+    );
 
-    return [];
+    return renamedQuestions;
 }
 
 /***

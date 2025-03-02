@@ -177,9 +177,18 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    console.log(questions);
+    // Create CSV string by adding info about each question to accumulator string
+    const questionCSV: string = questions.reduce(
+        (CSVString: string, currentQuestion: Question): string => {
+            return (
+                CSVString +
+                `\n${currentQuestion.id},${currentQuestion.name},${currentQuestion.options.length},${currentQuestion.points},${currentQuestion.published}`
+            );
+        },
+        "id,name,options,points,published",
+    );
 
-    return "";
+    return questionCSV;
 }
 
 /**

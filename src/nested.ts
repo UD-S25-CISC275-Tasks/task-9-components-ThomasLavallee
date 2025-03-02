@@ -357,7 +357,7 @@ export function editQuestion(
         };
     } else {
         let newOptions: string[] = question.options;
-        newOptions.splice(targetOptionIndex + 1, 1, newOption);
+        newOptions.splice(targetOptionIndex, 1, newOption);
 
         return {
             ...question,
@@ -414,8 +414,6 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number,
 ): Question[] {
-    console.log(questions, targetId, newId);
-
     // Make deep copies of all the questions
     let clonedQuestions: Question[] = questions.map(
         (currentQuestion: Question): Question => {

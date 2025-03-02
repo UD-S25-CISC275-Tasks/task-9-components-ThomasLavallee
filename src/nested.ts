@@ -329,19 +329,23 @@ export function changeQuestionTypeById(
     // Make deep copies of all objects, update type and options array of question with matching ID
     let changedQuestionType: Question[] = questions.map(
         (currentQuestion: Question): Question => {
-            if (
-                currentQuestion.id === targetId &&
-                newQuestionType !== "multiple_choice_question"
-            ) {
-                return {
-                    ...currentQuestion,
-                    type: newQuestionType,
-                    options: [],
-                };
+            if (currentQuestion.id === targetId) {
+                if (currentQuestion.type === "multiple_choice_question") {
+                    return {
+                        ...currentQuestion,
+                        type: newQuestionType,
+                        options: [],
+                    };
+                } else {
+                    return {
+                        ...currentQuestion,
+                        type: newQuestionType,
+                        options: [...currentQuestion.options],
+                    };
+                }
             } else {
                 return {
                     ...currentQuestion,
-                    type: newQuestionType,
                     options: [...currentQuestion.options],
                 };
             }

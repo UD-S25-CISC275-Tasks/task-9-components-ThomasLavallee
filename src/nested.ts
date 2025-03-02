@@ -367,20 +367,23 @@ export function editQuestion(
     targetOptionIndex: number,
     newOption: string,
 ): Question {
-    if (targetOptionIndex === -1) {
-        return {
-            ...question,
-            options: [...question.options, newOption],
-        };
-    } else {
-        let newOptions: string[] = question.options;
-        newOptions.splice(targetOptionIndex, 1, newOption);
+    // Make a deep copy of the question
+    let clonedQuestion: Question = {
+        ...question,
+        options: [...question.options],
+    };
 
-        return {
-            ...question,
-            options: newOptions,
-        };
+    // If target index is -1, add newOption to end of options arrary
+    if (targetOptionIndex === -1) {
+        clonedQuestion.options = [...clonedQuestion.options, newOption];
     }
+
+    // Else, replace option
+    else {
+        clonedQuestion.options.splice(targetOptionIndex, 1, newOption);
+    }
+
+    return clonedQuestion;
 }
 
 /**
@@ -400,8 +403,8 @@ export function editOption(
     newOption: string,
 ): Question[] {
     // Make deep copies of all questions, and change options array of question with targetId
-    let editedQuestions: Question[] = questions.map(
-        (currentQuestion: Question): Question => {
+    let clonedQuestions: Question[] = questions.map(
+        (currentQuestion: Question) => {
             if (currentQuestion.id === targetId) {
                 return editQuestion(
                     currentQuestion,
@@ -417,7 +420,7 @@ export function editOption(
         },
     );
 
-    return editedQuestions;
+    return clonedQuestions;
 }
 
 /***

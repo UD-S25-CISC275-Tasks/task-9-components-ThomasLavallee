@@ -217,9 +217,18 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
-    console.log(questions);
+    // Create new Question array, making deep copy of each object with published field now true
+    let publishedQuestions: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+                published: true,
+            };
+        },
+    );
 
-    return [];
+    return publishedQuestions;
 }
 
 /***

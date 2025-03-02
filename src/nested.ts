@@ -64,9 +64,25 @@ export function findQuestion(
     questions: Question[],
     id: number,
 ): Question | null {
-    console.log(questions, id);
+    // Find the matching question
+    const matchingQuestion: Question | undefined = questions.find(
+        (currentQuestion: Question) => {
+            return currentQuestion.id === id;
+        },
+    );
 
-    return null;
+    // If match not found, return NULL
+    if (matchingQuestion === undefined) {
+        return null;
+    }
+
+    // Make a deep copy of the question (deep copy of the options array)
+    const clonedQuestion: Question = {
+        ...matchingQuestion,
+        options: [...matchingQuestion.options],
+    };
+
+    return clonedQuestion;
 }
 
 /**

@@ -31,7 +31,18 @@ export function makeBlankQuestion(
  * HINT: Look up the `trim` and `toLowerCase` functions.
  */
 export function isCorrect(question: Question, answer: string): boolean {
-    return false;
+    // Remove whitespace and turn answer to lowercase
+    const trimmedAnswer: string = answer.trim().toLowerCase();
+
+    // Copy interface but without whitespace and lowercase in expected
+    const trimmedQuestion: Question = {
+        ...question,
+        options: [...question.options],
+        expected: question.expected.trim().toLowerCase(),
+    };
+
+    // Compare if answer and expected are equal
+    return trimmedAnswer === trimmedQuestion.expected;
 }
 
 /**
@@ -41,7 +52,21 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
-    return false;
+    let isValidQuestion: boolean;
+
+    // For short answer question any answer is valid
+    if (question.type === "short_answer_question") {
+        isValidQuestion = true;
+    } else {
+        // Check if answer matches at least one of the multiple choice options
+        isValidQuestion = question.options.some(
+            (currentAnswer: string): boolean => {
+                return currentAnswer === answer;
+            },
+        );
+    }
+
+    return isValidQuestion;
 }
 
 /**
@@ -51,7 +76,17 @@ export function isValid(question: Question, answer: string): boolean {
  * name "My First Question" would become "9: My First Q".
  */
 export function toShortForm(question: Question): string {
-    return "";
+    let questionName: string;
+
+    // Get first 10 characters of name field, if they exist
+    question.name.length < 10 ?
+        (questionName = question.name)
+    :   (questionName = question.name.slice(0, 10));
+
+    // Create the question string
+    let questionString: string = `${question.id}: ${questionName}`;
+
+    return questionString;
 }
 
 /**
@@ -72,7 +107,30 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    return "";
+    // Set up the first two lines
+    let formattedQuestion: string = `# ${question.name}\n${question.body}`;
+
+    // If question is multiple choice, add all the options on separate lines
+    if (question.type === "multiple_choice_question") {
+        // Format the options
+        let multipleChoiceOptions: string = question.options.reduce(
+            (combinedOptions: string, currentOption: string): string => {
+                return combinedOptions + "- " + currentOption + "\n";
+            },
+            "",
+        );
+
+        // Remove extra newline from last option
+        multipleChoiceOptions = multipleChoiceOptions.slice(
+            0,
+            multipleChoiceOptions.length - 1,
+        );
+
+        // Add options to whole question
+        formattedQuestion += "\n" + multipleChoiceOptions;
+    }
+
+    return formattedQuestion;
 }
 
 /**
@@ -80,7 +138,14 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    return question;
+    // Create new question, with all fields of old question, new name, and deep copy of options array
+    let newQuestion = {
+        ...question,
+        name: newName,
+        options: [...question.options],
+    };
+
+    return newQuestion;
 }
 
 /**
@@ -89,7 +154,14 @@ export function renameQuestion(question: Question, newName: string): Question {
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    return question;
+    // Create new question with all old fields, inverted published field, and deep copy of options array
+    let newQuestion = {
+        ...question,
+        published: !question.published,
+        options: [...question.options],
+    };
+
+    return newQuestion;
 }
 
 /**
@@ -99,7 +171,16 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    return oldQuestion;
+    // Copy all old fields, change name, change id, change published to false, and make a deep copy of the options array
+    let newQuestion = {
+        ...oldQuestion,
+        id: id,
+        name: `Copy of ${oldQuestion.name}`,
+        published: false,
+        options: [...oldQuestion.options],
+    };
+
+    return newQuestion;
 }
 
 /**
@@ -110,7 +191,13 @@ export function duplicateQuestion(id: number, oldQuestion: Question): Question {
  * Check out the subsection about "Nested Fields" for more information.
  */
 export function addOption(question: Question, newOption: string): Question {
-    return question;
+    // Creates new question with all fields of old question, and deep copy of options array with new option added
+    let newQuestion = {
+        ...question,
+        options: [...question.options, newOption],
+    };
+
+    return newQuestion;
 }
 
 /**
@@ -127,5 +214,15 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    return contentQuestion;
+    // Creates new question, deep copy of options array, uses parameters as values for fields
+    let newQuestion = {
+        ...contentQuestion,
+        options: [...contentQuestion.options],
+        id: id,
+        name: name,
+        published: false,
+        points: points,
+    };
+
+    return newQuestion;
 }

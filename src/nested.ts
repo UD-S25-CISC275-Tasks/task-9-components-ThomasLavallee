@@ -1,6 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -313,9 +313,57 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType,
 ): Question[] {
-    console.log(questions, targetId, newQuestionType);
+    // Make deep copies of all objects, update type and options array of question with matching ID
+    let changedQuestionType: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            if (
+                currentQuestion.id === targetId &&
+                newQuestionType !== "multiple_choice_question"
+            ) {
+                return {
+                    ...currentQuestion,
+                    type: newQuestionType,
+                    options: [],
+                };
+            } else {
+                return {
+                    ...currentQuestion,
+                    type: newQuestionType,
+                    options: [...currentQuestion.options],
+                };
+            }
+        },
+    );
 
-    return [];
+    return changedQuestionType;
+}
+
+/**
+ *
+ * @param question The question to make a copy of
+ * @param targetOptionIndex The index to insert newOption
+ * @param newOption The new option to add to options array of question
+ * @returns
+ */
+export function editQuestion(
+    question: Question,
+    targetOptionIndex: number,
+    newOption: string,
+): Question {
+    if (targetOptionIndex === -1) {
+        return {
+            ...question,
+            options: [...question.options, newOption],
+        };
+    } else {
+        let newOptions: string[] = question.options;
+        newOptions.splice(targetOptionIndex + 1, 1, newOption);
+
+        return {
+            ...question,
+            options: newOptions,
+        };
+    }
 }
 
 /**
@@ -334,8 +382,25 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    console.log(questions, targetId, targetOptionIndex, newOption);
-    return [];
+    // Make deep copies of all questions, and change options array of question with targetId
+    let editedQuestions: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            if (currentQuestion.id === targetId) {
+                return editQuestion(
+                    currentQuestion,
+                    targetOptionIndex,
+                    newOption,
+                );
+            } else {
+                return {
+                    ...currentQuestion,
+                    options: [...currentQuestion.options],
+                };
+            }
+        },
+    );
+
+    return editedQuestions;
 }
 
 /***
@@ -350,5 +415,32 @@ export function duplicateQuestionInArray(
     newId: number,
 ): Question[] {
     console.log(questions, targetId, newId);
-    return [];
+
+    // Make deep copies of all the questions
+    let clonedQuestions: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+            };
+        },
+    );
+
+    // Find index of target question
+    let duplicateIndex: number = questions.findIndex(
+        (currentQuestion: Question): boolean => {
+            return currentQuestion.id === targetId;
+        },
+    );
+
+    // Create the new duplicate question
+    let duplicatedQuestion: Question = duplicateQuestion(
+        newId,
+        clonedQuestions[duplicateIndex],
+    );
+
+    // Insert duplicate question in list
+    clonedQuestions.splice(duplicateIndex + 1, 0, duplicatedQuestion);
+
+    return clonedQuestions;
 }

@@ -6,7 +6,24 @@ import { Question, QuestionType } from "./interfaces/question";
  * that are `published`.
  */
 export function getPublishedQuestions(questions: Question[]): Question[] {
-    return [];
+    // Filter out unpublished questions
+    let publishedQuestions: Question[] = questions.filter(
+        (currentQuestion: Question): boolean => {
+            return currentQuestion.published;
+        },
+    );
+
+    // Clone all questions to make deep copies
+    let clonedQuestions: Question[] = publishedQuestions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+            };
+        },
+    );
+
+    return clonedQuestions;
 }
 
 /**
@@ -15,6 +32,8 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  * `expected`, and an empty array for its `options`.
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
+    console.log(questions);
+
     return [];
 }
 
@@ -24,8 +43,10 @@ export function getNonEmptyQuestions(questions: Question[]): Question[] {
  */
 export function findQuestion(
     questions: Question[],
-    id: number
+    id: number,
 ): Question | null {
+    console.log(questions, id);
+
     return null;
 }
 
@@ -34,6 +55,8 @@ export function findQuestion(
  * with the given `id`.
  */
 export function removeQuestion(questions: Question[], id: number): Question[] {
+    console.log(questions, id);
+
     return [];
 }
 
@@ -42,6 +65,8 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * questions, as an array.
  */
 export function getNames(questions: Question[]): string[] {
+    console.log(questions);
+
     return [];
 }
 
@@ -49,6 +74,8 @@ export function getNames(questions: Question[]): string[] {
  * Consumes an array of questions and returns the sum total of all their points added together.
  */
 export function sumPoints(questions: Question[]): number {
+    console.log(questions);
+
     return 0;
 }
 
@@ -56,6 +83,8 @@ export function sumPoints(questions: Question[]): number {
  * Consumes an array of questions and returns the sum total of the PUBLISHED questions.
  */
 export function sumPublishedPoints(questions: Question[]): number {
+    console.log(questions);
+
     return 0;
 }
 
@@ -77,6 +106,8 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
+    console.log(questions);
+
     return "";
 }
 
@@ -86,6 +117,8 @@ export function toCSV(questions: Question[]): string {
  * making the `text` an empty string, and using false for both `submitted` and `correct`.
  */
 export function makeAnswers(questions: Question[]): Answer[] {
+    console.log(questions);
+
     return [];
 }
 
@@ -94,6 +127,8 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
+    console.log(questions);
+
     return [];
 }
 
@@ -102,6 +137,8 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
+    console.log(questions);
+
     return false;
 }
 
@@ -114,8 +151,10 @@ export function addNewQuestion(
     questions: Question[],
     id: number,
     name: string,
-    type: QuestionType
+    type: QuestionType,
 ): Question[] {
+    console.log(questions, id, name, type);
+
     return [];
 }
 
@@ -127,8 +166,10 @@ export function addNewQuestion(
 export function renameQuestionById(
     questions: Question[],
     targetId: number,
-    newName: string
+    newName: string,
 ): Question[] {
+    console.log(questions, targetId, newName);
+
     return [];
 }
 
@@ -142,8 +183,10 @@ export function renameQuestionById(
 export function changeQuestionTypeById(
     questions: Question[],
     targetId: number,
-    newQuestionType: QuestionType
+    newQuestionType: QuestionType,
 ): Question[] {
+    console.log(questions, targetId, newQuestionType);
+
     return [];
 }
 
@@ -161,8 +204,9 @@ export function editOption(
     questions: Question[],
     targetId: number,
     targetOptionIndex: number,
-    newOption: string
+    newOption: string,
 ): Question[] {
+    console.log(questions, targetId, targetOptionIndex, newOption);
     return [];
 }
 
@@ -175,7 +219,8 @@ export function editOption(
 export function duplicateQuestionInArray(
     questions: Question[],
     targetId: number,
-    newId: number
+    newId: number,
 ): Question[] {
+    console.log(questions, targetId, newId);
     return [];
 }

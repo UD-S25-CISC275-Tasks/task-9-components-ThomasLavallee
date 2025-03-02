@@ -129,9 +129,15 @@ export function getNames(questions: Question[]): string[] {
  * Consumes an array of questions and returns the sum total of all their points added together.
  */
 export function sumPoints(questions: Question[]): number {
-    console.log(questions);
+    // Calculate the sum of all the points for the questions
+    const totalPoints: number = questions.reduce(
+        (currentTotal: number, currentQuestion: Question): number => {
+            return currentTotal + currentQuestion.points;
+        },
+        0,
+    );
 
-    return 0;
+    return totalPoints;
 }
 
 /***

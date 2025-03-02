@@ -32,9 +32,28 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  * `expected`, and an empty array for its `options`.
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
-    console.log(questions);
+    // Save only the nonempty questions
+    const nonEmptyQuestions: Question[] = questions.filter(
+        (currentQuestion: Question): boolean => {
+            return (
+                currentQuestion.body.length > 0 ||
+                currentQuestion.expected.length > 0 ||
+                currentQuestion.options.length > 0
+            );
+        },
+    );
 
-    return [];
+    // Make a deep copy of each question (the options array)
+    const clonedQuestions: Question[] = nonEmptyQuestions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+            };
+        },
+    );
+
+    return clonedQuestions;
 }
 
 /***

@@ -373,12 +373,12 @@ export function editQuestion(
         options: [...question.options],
     };
 
-    // If target index is -1, add newOption to end of options arrary
+    // If target index is -1, add newOption to end of options array
     if (targetOptionIndex === -1) {
         clonedQuestion.options = [...clonedQuestion.options, newOption];
     }
 
-    // Else, replace option
+    // Else, replace with newOption in options array
     else {
         clonedQuestion.options.splice(targetOptionIndex, 1, newOption);
     }

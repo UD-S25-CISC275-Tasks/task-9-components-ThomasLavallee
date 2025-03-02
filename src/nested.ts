@@ -90,9 +90,24 @@ export function findQuestion(
  * with the given `id`.
  */
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    console.log(questions, id);
+    // Save only questions that do not match the id
+    const filteredQuestions: Question[] = questions.filter(
+        (currentQuestion: Question): boolean => {
+            return currentQuestion.id !== id;
+        },
+    );
 
-    return [];
+    // Make deep copies of the question
+    const clonedQuestions: Question[] = filteredQuestions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+            };
+        },
+    );
+
+    return clonedQuestions;
 }
 
 /***

@@ -1,5 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
+import { makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -252,9 +253,21 @@ export function addNewQuestion(
     name: string,
     type: QuestionType,
 ): Question[] {
-    console.log(questions, id, name, type);
+    // Make deep copies of all the questions
+    let clonedQuestions: Question[] = questions.map(
+        (currentQuestion: Question): Question => {
+            return {
+                ...currentQuestion,
+                options: [...currentQuestion.options],
+            };
+        },
+    );
 
-    return [];
+    // Create blank question and add it to end of array
+    let blankQuestion: Question = makeBlankQuestion(id, name, type);
+    clonedQuestions = [...clonedQuestions, blankQuestion];
+
+    return clonedQuestions;
 }
 
 /***

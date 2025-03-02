@@ -144,9 +144,19 @@ export function sumPoints(questions: Question[]): number {
  * Consumes an array of questions and returns the sum total of the PUBLISHED questions.
  */
 export function sumPublishedPoints(questions: Question[]): number {
-    console.log(questions);
+    // Calculate sum of points for all PUBLISHED questions
+    const publishedTotal: number = questions.reduce(
+        (currentTotal: number, currentQuestion: Question): number => {
+            if (currentQuestion.published) {
+                return currentTotal + currentQuestion.points;
+            } else {
+                return currentTotal;
+            }
+        },
+        0,
+    );
 
-    return 0;
+    return publishedTotal;
 }
 
 /***

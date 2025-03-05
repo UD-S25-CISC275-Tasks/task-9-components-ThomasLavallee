@@ -283,13 +283,8 @@ describe("Testing the Question[] functions", () => {
                 options: [],
                 expected: "",
                 points: 1,
-<<<<<<< HEAD
-                published: false,
-            },
-=======
                 published: false
             }
->>>>>>> origin/task-state
         ]);
         expect(removeQuestion(SIMPLE_QUESTIONS, 9)).toEqual([
             {
@@ -300,11 +295,7 @@ describe("Testing the Question[] functions", () => {
                 options: [],
                 expected: "4",
                 points: 1,
-<<<<<<< HEAD
-                published: true,
-=======
                 published: true
->>>>>>> origin/task-state
             },
             {
                 id: 2,
@@ -314,11 +305,7 @@ describe("Testing the Question[] functions", () => {
                 options: [],
                 expected: "Z",
                 points: 1,
-<<<<<<< HEAD
-                published: false,
-=======
                 published: false
->>>>>>> origin/task-state
             },
             {
                 id: 5,
@@ -328,13 +315,8 @@ describe("Testing the Question[] functions", () => {
                 options: ["red", "apple", "firetruck"],
                 expected: "red",
                 points: 1,
-<<<<<<< HEAD
-                published: true,
-            },
-=======
                 published: true
             }
->>>>>>> origin/task-state
         ]);
         expect(removeQuestion(SIMPLE_QUESTIONS, 5)).toEqual([
             {
@@ -345,11 +327,7 @@ describe("Testing the Question[] functions", () => {
                 options: [],
                 expected: "4",
                 points: 1,
-<<<<<<< HEAD
-                published: true,
-=======
                 published: true
->>>>>>> origin/task-state
             },
             {
                 id: 2,
@@ -359,11 +337,7 @@ describe("Testing the Question[] functions", () => {
                 options: [],
                 expected: "Z",
                 points: 1,
-<<<<<<< HEAD
-                published: false,
-=======
                 published: false
->>>>>>> origin/task-state
             },
             {
                 id: 9,
@@ -373,18 +347,6 @@ describe("Testing the Question[] functions", () => {
                 options: ["square", "triangle", "circle"],
                 expected: "circle",
                 points: 2,
-<<<<<<< HEAD
-                published: false,
-            },
-        ]);
-    });
-
-    test("(3 pts) Testing the getNames function", () => {
-        expect(getNames(BLANK_QUESTIONS)).toEqual([
-            "Question 1",
-            "My New Question",
-            "Question 2",
-=======
                 published: false
             }
         ]);
@@ -395,56 +357,35 @@ describe("Testing the Question[] functions", () => {
             "Question 1",
             "My New Question",
             "Question 2"
->>>>>>> origin/task-state
         ]);
         expect(getNames(SIMPLE_QUESTIONS)).toEqual([
             "Addition",
             "Letters",
             "Colors",
-<<<<<<< HEAD
-            "Shapes",
-=======
             "Shapes"
->>>>>>> origin/task-state
         ]);
         expect(getNames(TRIVIA_QUESTIONS)).toEqual([
             "Mascot",
             "Motto",
-<<<<<<< HEAD
-            "Goats",
-=======
             "Goats"
->>>>>>> origin/task-state
         ]);
         expect(getNames(SIMPLE_QUESTIONS_2)).toEqual([
             "Students",
             "Importance",
             "Sentience",
             "Danger",
-<<<<<<< HEAD
-            "Listening",
-=======
             "Listening"
->>>>>>> origin/task-state
         ]);
         expect(getNames(EMPTY_QUESTIONS)).toEqual([
             "Empty 1",
             "Empty 2",
             "Empty 3",
             "Empty 4",
-<<<<<<< HEAD
-            "Empty 5 (Actual)",
-        ]);
-    });
-
-    test("(3 pts) Testing the sumPoints function", () => {
-=======
             "Empty 5 (Actual)"
         ]);
     });
 
     test("Testing the sumPoints function", () => {
->>>>>>> origin/task-state
         expect(sumPoints(BLANK_QUESTIONS)).toEqual(3);
         expect(sumPoints(SIMPLE_QUESTIONS)).toEqual(5);
         expect(sumPoints(TRIVIA_QUESTIONS)).toEqual(20);
@@ -452,11 +393,7 @@ describe("Testing the Question[] functions", () => {
         expect(sumPoints(SIMPLE_QUESTIONS_2)).toEqual(300);
     });
 
-<<<<<<< HEAD
-    test("(3 pts) Testing the sumPublishedPoints function", () => {
-=======
     test("Testing the sumPublishedPoints function", () => {
->>>>>>> origin/task-state
         expect(sumPublishedPoints(BLANK_QUESTIONS)).toEqual(0);
         expect(sumPublishedPoints(SIMPLE_QUESTIONS)).toEqual(2);
         expect(sumPublishedPoints(TRIVIA_QUESTIONS)).toEqual(0);
@@ -464,11 +401,7 @@ describe("Testing the Question[] functions", () => {
         expect(sumPublishedPoints(SIMPLE_QUESTIONS_2)).toEqual(300);
     });
 
-<<<<<<< HEAD
-    test("(3 pts) Testing the toCSV function", () => {
-=======
     test("Testing the toCSV function", () => {
->>>>>>> origin/task-state
         expect(toCSV(BLANK_QUESTIONS)).toEqual(`id,name,options,points,published
 1,Question 1,0,1,false
 47,My New Question,0,1,false

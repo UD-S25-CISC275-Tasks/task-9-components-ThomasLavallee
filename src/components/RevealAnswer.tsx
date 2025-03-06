@@ -6,6 +6,7 @@ export function RevealAnswer(): React.JSX.Element {
     const [isVisible, visibilitySetter] = useState<boolean>(false);
     const answer: number = 42;
 
+    // Button to turn on/off showing the answer
     return (
         <div>
             <Button

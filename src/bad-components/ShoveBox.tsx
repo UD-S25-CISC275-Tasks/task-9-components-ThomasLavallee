@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
+// When the button is clicked, use the state setter to update value of position state
 function ShoveBoxButton({
     position,
     setPosition,
@@ -19,8 +20,8 @@ function ShoveBoxButton({
     );
 }
 
-function MoveableBox(): React.JSX.Element {
-    const [position, setPosition] = useState<number>(10);
+// Set left margin of div to be the position
+function MoveableBox({ position }: { position: number }): React.JSX.Element {
     return (
         <div
             data-testid="moveable-box"
@@ -38,19 +39,20 @@ function MoveableBox(): React.JSX.Element {
 }
 
 export function ShoveBox(): React.JSX.Element {
-    const box = MoveableBox();
+    // Keep track of state of position of box
+    const [position, setPosition] = useState<number>(10);
 
     return (
         <div>
             <h3>Shove Box</h3>
-            {/* <span>The box is at: {box.position}</span>
+            <span>The box is at: {position}</span>
             <div>
                 <ShoveBoxButton
-                    position={box.position}
-                    setPosition={box.setPosition}
+                    position={position}
+                    setPosition={setPosition}
                 ></ShoveBoxButton>
-                {box}
-            </div> */}
+                <MoveableBox position={position}></MoveableBox>
+            </div>
         </div>
     );
 }
